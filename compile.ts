@@ -13,13 +13,13 @@ await build({
 	},
 	package: {
 		// package.json properties
-		name: "surrealdb.js",
+		name: "@soyamiruku/surrealdb.js",
 		version: project.version,
 		description: "Javascript driver for SurrealDB",
 		license: "Apache 2.0",
 		repository: {
 			type: "git",
-			url: "https://github.com/surrealdb/surrealdb.js.git",
+			url: "https://github.com/soya-miruku/surrealdb.js.git",
 		},
 		author: {
 			name: "Tobie Morgan Hitchcock",
@@ -27,6 +27,7 @@ await build({
 		},
 		dependencies: {
 			"unws": "^0.2.3",
+			"tcp-websocket": "^0.1.1",
 			"ws": "^8.13.0",
 		},
 		devDependencies: {
@@ -35,8 +36,7 @@ await build({
 			"esbuild": "0.15.8",
 		},
 		scripts: {
-			"build:web":
-				"esbuild ./esm/index.js --format=esm --minify --bundle --sourcemap --outfile=./web/index.js",
+			"build:web": "esbuild ./esm/index.js --platform=node --format=esm --minify --bundle --sourcemap --outfile=./web/index.js",
 		},
 		browser: "./web/index.js",
 	},
@@ -45,7 +45,7 @@ await build({
 		"./src/library/WebSocket/deno.ts": "./src/library/WebSocket/node.ts",
 	},
 	compilerOptions: {
-		lib: ["dom"],
+		lib: ["DOM"],
 		sourceMap: true,
 	},
 });
