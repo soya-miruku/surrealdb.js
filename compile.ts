@@ -13,7 +13,7 @@ await build({
 	},
 	package: {
 		// package.json properties
-		name: "@soyamiruku/surrealdb.js",
+		name: "@soyamiruku/surrealdb.bun",
 		version: project.version,
 		description: "Javascript driver for SurrealDB",
 		license: "Apache 2.0",
