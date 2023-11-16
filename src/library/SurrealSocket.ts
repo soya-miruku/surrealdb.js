@@ -104,8 +104,8 @@ export class SurrealSocket {
 		});
 
 		ws.addEventListener("message", (e) => {
-			const res = JSON.parse(e.data) as RawSocketMessageResponse;
-
+			const data = e.data.replace(/\0/g, '') as string;
+			const res = JSON.parse(data) as RawSocketMessageResponse;
 			if (SurrealSocket.isLiveNotification(res)) {
 				this.handleLiveBatch(res.result);
 			} else if (res.id && res.id in this.queue) {
