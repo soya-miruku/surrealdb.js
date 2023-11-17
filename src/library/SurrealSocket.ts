@@ -9,6 +9,7 @@ import {
 } from "../types.ts";
 import WebSocket from "./WebSocket/deno.ts";
 import { getIncrementalID } from "./getIncrementalID.ts";
+import { isValidJSON } from "./isValidJSON.ts";
 import { processUrl } from "./processUrl.ts";
 
 export class SurrealSocket {
@@ -105,6 +106,7 @@ export class SurrealSocket {
 
 		ws.addEventListener("message", (e) => {
 			const data = e.data;
+			if(!isValidJSON(data)) throw new Error("Invalid JSON received, possibly sending large data?");
 			const res = JSON.parse(data) as RawSocketMessageResponse;
 			if (SurrealSocket.isLiveNotification(res)) {
 				this.handleLiveBatch(res.result);
@@ -173,9 +175,7 @@ export class SurrealSocket {
 		{ id: queryUuid, ...message }: UnprocessedLiveQueryResponse,
 	) {
 		if (this.liveQueue[queryUuid]) {
-			await Promise.all(
-				this.liveQueue[queryUuid].map(async (cb) => await cb(message)),
-			);
+			await Promise.all(this.liveQueue[queryUuid].map(async (cb) => await cb(message)));
 		} else {
 			if (!(queryUuid in this.unprocessedLiveResponses)) {
 				this.unprocessedLiveResponses[queryUuid] = [];

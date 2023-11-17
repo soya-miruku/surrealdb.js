@@ -206,6 +206,17 @@ export default async (db, { surrealql, PreparedQuery }) => {
 		};
 	})
 
+	await test("Create Large data", async (expect) => {
+		const items = Array.from({ length: 12000 }, (_, i) => i);
+		const response = await db.create("large:1", {
+			items
+		});
+		expect(response).toEqualStringified([{
+			id: "large:1",
+			items
+		}]);
+	})
+
 	if (db.strategy === 'ws') {
 		logger.debug("== Running WS specific tests ==");
 		await test("Insert a record", async (expect) => {
