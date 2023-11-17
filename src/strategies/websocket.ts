@@ -45,10 +45,7 @@ export class WebSocketStrategy implements Connection {
 	 * Establish a socket connection to the database
 	 * @param connection - Connection details
 	 */
-	async connect(
-		url: string,
-		opts: ConnectionOptions = {},
-	) {
+	async connect(url: string, opts: ConnectionOptions = {}) {
 		const { prepare, auth, namespace, database } = processConnectionOptions(
 			opts,
 		);

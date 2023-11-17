@@ -12,7 +12,9 @@ function ModifyCloseMethod<T extends { new (...args: any[]): any }>(BaseClass: T
 const WebSocketClose = ModifyCloseMethod(TCPWebSocket);
 
 class WebSocket extends WebSocketClose {
-	addEventListener = this.addListener;
+	addEventListener = (eventName: string, listener: (...args: any[]) => void) => {
+		return this.addListener(eventName, listener);
+};
 }
 
 export default WebSocket;

@@ -7,3 +7,5 @@ export default WebSocketStrategy;
 
 export { PreparedQuery } from "./library/PreparedQuery.ts";
 export { surql, surrealql } from "./library/tagged-template.ts";
+
+export * from './types.ts';
