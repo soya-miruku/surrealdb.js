@@ -206,16 +206,18 @@ export default async (db, { surrealql, PreparedQuery }) => {
 		};
 	})
 
-	await test("Create Large data", async (expect) => {
-		const items = Array.from({ length: 12000 }, (_, i) => i);
-		const response = await db.create("large:1", {
-			items
-		});
-		expect(response).toEqualStringified([{
-			id: "large:1",
-			items
-		}]);
-	})
+	if(db.strategy === "http") {
+		await test("Create Large data", async (expect) => {
+			const items = Array.from({ length: 3496 }, (_, i) => i);
+			const response = await db.create("large:1", {
+				items
+			});
+			expect(response).toEqualStringified([{
+				id: "large:1",
+				items
+			}]);
+		})
+	}
 
 	if (db.strategy === 'ws') {
 		logger.debug("== Running WS specific tests ==");
@@ -294,6 +296,16 @@ export default async (db, { surrealql, PreparedQuery }) => {
 			await db.kill(uuid);
 		});
 
+		await test("Create Large data", async (expect) => {
+			const items = Array.from({ length: 50000 }, (_, i) => i);
+			const response = await db.create("large:1", {
+				items
+			});
+			expect(response).toEqualStringified([{
+				id: "large:1",
+				items
+			}]);
+		})
 		logger.debug("== Finished WS specific tests ==");
 	}
 

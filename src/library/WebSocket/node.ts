@@ -1,18 +1,4 @@
-import TCPWebSocket from "npm:tcp-websocket";
+// export { WebSocket as default } from "npm:unws";
 
-function ModifyCloseMethod<T extends { new (...args: any[]): any }>(BaseClass: T) {
-	return class extends BaseClass {
-			// Override close method with a different parameter type
-			close(code: number, reason: string) {
-					super.close(reason, code)
-			}
-	};
-}
-
-const WebSocketClose = ModifyCloseMethod(TCPWebSocket);
-
-class WebSocket extends WebSocketClose {
-	addEventListener = this.addListener;
-}
-
+import WebSocket from './tmp.ts';
 export default WebSocket;
