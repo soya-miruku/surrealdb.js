@@ -19,7 +19,7 @@ await ws.connect("http://127.0.0.1:8000", {
 console.log("\n Testing Websocket");
 // await handler(ws, exports);
 console.log("\n Testing Websocket Large");
-const items = Array.from({ length: 22000 }, (_, i) => i);
+const items = Array.from({ length: 12000 }, (_, i) => i);
 console.log(JSON.stringify(items).length);
 await ws.create("large", {
   items

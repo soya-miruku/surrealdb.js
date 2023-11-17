@@ -21,6 +21,14 @@ await build({
 			type: "git",
 			url: "https://github.com/soya-miruku/surrealdb.js.git",
 		},
+		types: "./esm/types.d.ts",
+		exports: {
+			".": {
+				"import": "./esm/index.js",
+				"require": "./script/index.js",
+				"types": "./esm/types.d.ts"
+			}
+		},
 		author: {
 			name: "Tobie Morgan Hitchcock",
 			url: "https://surrealdb.com",
